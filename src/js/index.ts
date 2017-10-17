@@ -1,4 +1,11 @@
 import "babel-polyfill";
-import Play2D from "./Play2D.ts";
+import { Play2D } from "./engine/Core.ts";
 
-(<any>window).Play2D = new Play2D;
+declare var window: any;
+window.Play2D = Play2D;
+
+
+Play2D.init({
+    width: 900,
+    height: 500
+})
