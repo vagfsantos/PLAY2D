@@ -1,4 +1,4 @@
-interface CreateCanvasInterface {
+export interface canvasConfiguration {
     width: number;
     height: number;
 }
