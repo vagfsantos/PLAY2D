@@ -9,8 +9,18 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.ts$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env', 'es2015']
+          }
+        }
+      },
       { 
-        test: /\.tsx?$/, 
+        test: /\.ts$/,
         loader: 'ts-loader'
       }
     ]
