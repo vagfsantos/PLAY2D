@@ -1,7 +1,7 @@
-import { canvasConfiguration } from './Canvas.interfaces.ts';
+import { $CanvasConfiguration } from './Canvas.interfaces.ts';
 
 export class Canvas {
-    
+
     private _canvasElement: HTMLCanvasElement;
     private _ctx: CanvasRenderingContext2D;
 
@@ -11,8 +11,12 @@ export class Canvas {
         this._ctx = this._canvasElement.getContext('2d')
     }
 
-    createCanvas(configuration: canvasConfiguration): void {
-        
+    getCtx(): CanvasRenderingContext2D {
+      return this._ctx;
+    }
+
+    createCanvas(configuration: $CanvasConfiguration): void {
+
         this._canvasElement.width = configuration.width;
         this._canvasElement.height = configuration.height;
 

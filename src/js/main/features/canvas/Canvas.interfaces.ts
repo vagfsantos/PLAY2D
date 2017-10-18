@@ -1,4 +1,4 @@
-export interface canvasConfiguration {
+export interface $CanvasConfiguration {
     width: number;
     height: number;
 }

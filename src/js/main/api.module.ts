@@ -1,6 +1,9 @@
 import {
     Canvas,
-    canvasConfiguration
+    $CanvasConfiguration,
+
+    GameObject,
+    $Rect
 } from "./features/_exports.ts";
 
 const   _defaultCanvasWidth = 500,
@@ -9,15 +12,22 @@ const   _defaultCanvasWidth = 500,
 class API {
 
     private canvas = new Canvas();
+    private ctx: CanvasRenderingContext2D;
+    private gameObject = new GameObject();
 
-    init(configuration: canvasConfiguration): API {
-        
+    constructor() {
+
+      this.ctx = this.canvas.getCtx();
+    }
+
+    init(configuration: $CanvasConfiguration): API {
+
         this.canvas.createCanvas(configuration)
         return this;
     }
 
-    createGameObject(params: Object) {
-
+    createGameObject(params: $Rect) {
+      this.gameObject.createRect(this.ctx, params);
     }
 }
 
