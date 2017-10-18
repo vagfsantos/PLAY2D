@@ -3,7 +3,8 @@ import {
     $CanvasConfiguration,
 
     GameObject,
-    $Rect
+    $Rect,
+    $Arc
 } from "./features/_exports.ts";
 
 const   _defaultCanvasWidth = 500,
@@ -26,8 +27,18 @@ class API {
         return this;
     }
 
-    createGameObject(params: $Rect) {
-      this.gameObject.createRect(this.ctx, params);
+    createGameObject(type: string, params: Object) {
+
+      switch( type ) {
+
+        case 'rect':
+          this.gameObject.createRect(this.ctx, params as $Rect );
+        break;
+
+        case 'arc':
+          this.gameObject.createArc(this.ctx, params as $Arc );
+        break;
+      }
     }
 }
 

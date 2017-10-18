@@ -1,9 +1,4 @@
-interface GameObject {
-
-  type: string;
-}
-
-export interface $Rect extends GameObject {
+export interface $Rect {
 
   x: number;
   y: number;
@@ -11,3 +6,14 @@ export interface $Rect extends GameObject {
   height: number;
   background: string
 }
+
+export interface $Arc {
+
+    x: number;
+    y: number;
+    radius: number;
+    startAngle: number;
+    endAngle: number;
+    anticlockwise: boolean;
+    background: string;
+  }
