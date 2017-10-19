@@ -7,6 +7,10 @@ module.exports = {
     filename: 'play2d.js'
   },
 
+  resolve: {
+    extensions: ['.js', '.ts']
+  },
+
   module: {
     rules: [
       {
@@ -19,7 +23,7 @@ module.exports = {
           }
         }
       },
-      { 
+      {
         test: /\.ts$/,
         loader: 'ts-loader'
       }
