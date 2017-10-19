@@ -3705,8 +3705,26 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(125);
-var Core_ts_1 = __webpack_require__(327);
-window.Play2D = Core_ts_1.default;
+var api_module_1 = __webpack_require__(327);
+window.Play2D = api_module_1.Play2D;
+api_module_1.Play2D.init({
+    width: 500,
+    height: 300
+});
+api_module_1.Play2D.createGameObject('rect', {
+    x: 50,
+    y: 20,
+    width: 100,
+    height: 100,
+    background: '#000'
+});
+api_module_1.Play2D.createGameObject('arc', {
+    x: 50,
+    y: 200,
+    radius: 50,
+    anticlockwise: true,
+    background: '#000'
+});
 
 /***/ }),
 /* 125 */
@@ -9025,8 +9043,100 @@ module.exports = function (regExp, replace) {
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-function Core() {}
-exports.default = Core;
+var _exports_ts_1 = __webpack_require__(328);
+var _defaultCanvasWidth = 500,
+    _defaultCanvasHeight = 500;
+var API = /** @class */function () {
+    function API() {
+        this.canvas = new _exports_ts_1.Canvas();
+        this.gameObject = new _exports_ts_1.GameObject();
+        this.ctx = this.canvas.getCtx();
+    }
+    API.prototype.init = function (configuration) {
+        this.canvas.createCanvas(configuration);
+        return this;
+    };
+    API.prototype.createGameObject = function (type, params) {
+        switch (type) {
+            case 'rect':
+                this.gameObject.createRect(this.ctx, params);
+                break;
+            case 'arc':
+                this.gameObject.createArc(this.ctx, params);
+                break;
+        }
+    };
+    return API;
+}();
+exports.Play2D = new API();
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function __export(m) {
+    for (var p in m) {
+        if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+// Canvas
+__export(__webpack_require__(329));
+// Game Object
+__export(__webpack_require__(330));
+
+/***/ }),
+/* 329 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Canvas = /** @class */function () {
+    function Canvas() {
+        this._canvasElement = document.createElement('canvas');
+        this._ctx = this._canvasElement.getContext('2d');
+    }
+    Canvas.prototype.getCtx = function () {
+        return this._ctx;
+    };
+    Canvas.prototype.createCanvas = function (configuration) {
+        this._canvasElement.width = configuration.width;
+        this._canvasElement.height = configuration.height;
+        document.querySelector('body').appendChild(this._canvasElement);
+    };
+    return Canvas;
+}();
+exports.Canvas = Canvas;
+
+/***/ }),
+/* 330 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var GameObject = /** @class */function () {
+    function GameObject() {}
+    GameObject.prototype.createRect = function (ctx, rect) {
+        ctx.fillStyle = rect.background;
+        ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+    };
+    GameObject.prototype.createArc = function (ctx, arc) {
+        ctx.beginPath();
+        ctx.fillStyle = arc.background;
+        ctx.arc(arc.x, arc.y, arc.radius, arc.startAngle, arc.endAngle, arc.anticlockwise);
+        ctx.fill();
+    };
+    GameObject.prototype.createSprite = function () {};
+    return GameObject;
+}();
+exports.GameObject = GameObject;
 
 /***/ })
 /******/ ]);

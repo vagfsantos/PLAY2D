@@ -1,7 +1,7 @@
 // Canvas
-export * from "./canvas/Canvas.feature.ts";
-export * from "./canvas/Canvas.interfaces.ts";
+export * from "./canvas/Canvas.feature";
+export * from "./canvas/Canvas.interfaces";
 
 // Game Object
-export * from "./gameObject/GameObject.feature.ts";
-export * from "./gameObject/GameObject.interfaces.ts";
+export * from "./gameObject/GameObject.feature";
+export * from "./gameObject/GameObject.interfaces";

@@ -5,7 +5,7 @@ import {
     GameObject,
     $Rect,
     $Arc
-} from "./features/_exports.ts";
+} from "./features/_exports";
 
 const   _defaultCanvasWidth = 500,
         _defaultCanvasHeight = 500;
@@ -36,7 +36,14 @@ class API {
         break;
 
         case 'arc':
-          this.gameObject.createArc(this.ctx, params as $Arc );
+          let arcSettings = params as $Arc;
+
+          if( !arcSettings.startAngle ) arcSettings.startAngle = 0;
+          if( !arcSettings.endAngle ) arcSettings.endAngle = Math.PI * 2;
+          if( !arcSettings.anticlockwise ) arcSettings.anticlockwise = false;
+
+          console.log(arcSettings);
+          this.gameObject.createArc(this.ctx, arcSettings);
         break;
       }
     }

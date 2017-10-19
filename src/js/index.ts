@@ -1,5 +1,5 @@
 import "babel-polyfill";
-import { Play2D } from "./main/api.module.ts";
+import { Play2D } from "./main/api.module";
 
 declare var window: any;
 window.Play2D = Play2D;
@@ -23,8 +23,6 @@ Play2D.createGameObject('arc', {
   x: 50,
   y: 200,
   radius: 50,
-  startAngle: 0,
-  endAngle: Math.PI * 2,
   anticlockwise: true,
   background: '#000'
 })

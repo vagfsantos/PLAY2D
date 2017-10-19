@@ -1,4 +1,4 @@
-import { $CanvasConfiguration } from './Canvas.interfaces.ts';
+import { $CanvasConfiguration } from './Canvas.interfaces';
 
 export class Canvas {
 
