@@ -1,11 +1,3 @@
-import "babel-polyfill";
-import { Play2D } from "./main/api.module";
-
-declare var window: any;
-window.Play2D = Play2D;
-
-
-
 Play2D.init({
   width: 500,
   height: 300
@@ -19,7 +11,7 @@ let rect = Play2D.createDraw('rect', {
   background: '#000'
 });
 
-rect.onUpdate(function(){
+rect.setUpdate(function(){
   this.x++
 });
 

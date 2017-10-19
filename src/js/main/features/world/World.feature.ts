@@ -1,9 +1,9 @@
-import { Scene, GameLoop } from "../_exports";
+import { Scene, GameLoop, Canvas } from "../_exports";
 
 export class World {
   private scenes: Scene[] = [];
 
-  constructor(private id: string) {
+  constructor(private _id: string, private _canvas: Canvas) {
 
   }
 
@@ -16,6 +16,7 @@ export class World {
   render() {
 
     for( let scene of this.scenes ) {
+      this._canvas.clean();
       scene.render();
     }
     this.initLoop();

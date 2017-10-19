@@ -17,19 +17,19 @@ const   _defaultCanvasWidth = 500,
 
 class API {
 
-    private canvas = new Canvas();
-    private ctx: CanvasRenderingContext2D;
-    private gameObject = new GameObject();
-    private drawUtil = DrawUtil;
+    private _canvas = new Canvas();
+    private _ctx: CanvasRenderingContext2D;
+    private _gameObject = new GameObject();
+    private _drawUtil = DrawUtil;
 
     constructor() {
 
-      this.ctx = this.canvas.getCtx();
+      this._ctx = this._canvas.getCtx();
     }
 
     init(configuration: $CanvasConfiguration): API {
 
-        this.canvas.createCanvas(configuration)
+        this._canvas.createCanvas(configuration)
         return this;
     }
 
@@ -37,19 +37,19 @@ class API {
 
       switch( type ) {
         case 'rect':
-          return this.drawUtil.rect(this.ctx, params as $Rect );
+          return this._drawUtil.rect(this._ctx, params as $Rect );
 
         case 'arc':
           let arcSettings = params as $Arc;
           if( !arcSettings.startAngle ) arcSettings.startAngle = 0;
           if( !arcSettings.endAngle ) arcSettings.endAngle = Math.PI * 2;
           if( !arcSettings.anticlockwise ) arcSettings.anticlockwise = false;
-          return this.drawUtil.arc(this.ctx, arcSettings);
+          return this._drawUtil.arc(this._ctx, arcSettings);
       }
     }
 
     createWorld(id: string): World {
-      return new World(id);
+      return new World( id, this._canvas );
     }
 
     createScene(): Scene {

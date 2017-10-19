@@ -14,7 +14,7 @@ export class GameObject {
     this.render = init.bind(this.config);
   }
 
-  setUpdate(update: Function): void {
+  onUpdate(update: Function): void {
 
     this.update = update.bind(this.config);
   }

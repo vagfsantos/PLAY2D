@@ -22,4 +22,8 @@ export class Canvas {
 
         document.querySelector('body').appendChild(this._canvasElement);
     }
+
+    clean() {
+      this._ctx.clearRect(0, 0, this._canvasElement.width, this._canvasElement.height);
+    }
 }
