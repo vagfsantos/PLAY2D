@@ -6,7 +6,10 @@ import {
 
     DrawUtil,
     $Rect,
-    $Arc
+    $Arc,
+
+    World,
+    Scene
 } from "./features/_exports";
 
 const   _defaultCanvasWidth = 500,
@@ -43,6 +46,14 @@ class API {
           if( !arcSettings.anticlockwise ) arcSettings.anticlockwise = false;
           return this.drawUtil.arc(this.ctx, arcSettings);
       }
+    }
+
+    createWorld(id: string): World {
+      return new World(id);
+    }
+
+    createScene(): Scene {
+      return new Scene;
     }
 }
 

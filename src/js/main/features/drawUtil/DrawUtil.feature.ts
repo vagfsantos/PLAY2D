@@ -5,13 +5,15 @@ export class DrawUtil {
   static rect(ctx: CanvasRenderingContext2D, rect: $Rect): GameObject {
 
     let gameObject = new GameObject();
+    gameObject.setConfig(rect);
+
     gameObject.setInit(function(){
-      ctx.fillStyle = rect.background;
+      ctx.fillStyle = this.background;
       ctx.fillRect(
-        rect.x,
-        rect.y,
-        rect.width,
-        rect.height
+        this.x,
+        this.y,
+        this.width,
+        this.height
       )
     });
 
