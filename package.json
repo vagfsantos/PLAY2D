@@ -6,6 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --color --open --hot --inline",
     "build": "webpack --display-error-details",
+    "doc": "gulp doc",
+    "doca": "doca init -i output -o doc -t bootstrap",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
