@@ -1,28 +1,15 @@
-import {
-    $Rect,
-    $Arc
-} from './GameObject.interfaces';
-
 export class GameObject {
+  private init: Function;
+  private update: Function;
+  private render: Function;
 
-    createRect(ctx: CanvasRenderingContext2D, rect: $Rect) {
-      ctx.fillStyle = rect.background;
-      ctx.fillRect(
-        rect.x,
-        rect.y,
-        rect.width,
-        rect.height
-      )
-    }
+  setInit(init: Function): void {
 
-    createArc(ctx: CanvasRenderingContext2D, arc: $Arc) {
-      ctx.beginPath();
-      ctx.fillStyle = arc.background;
-      ctx.arc(arc.x, arc.y, arc.radius, arc.startAngle, arc.endAngle, arc.anticlockwise);
-      ctx.fill();
-    }
+    this.init = init.bind(this);
+  }
 
-    createSprite() {
+  setUpdate(update: Function): void {
 
-    }
+    this.update = update.bind(this);
+  }
 }

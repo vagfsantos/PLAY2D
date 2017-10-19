@@ -9043,13 +9043,19 @@ module.exports = function (regExp, replace) {
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var _exports_ts_1 = __webpack_require__(328);
+var _exports_1 = __webpack_require__(328);
 var _defaultCanvasWidth = 500,
     _defaultCanvasHeight = 500;
+/** Class representing a point. */
 var API = /** @class */function () {
+    /**
+     * Create a point.
+     * @param {number} x - The x value.
+     * @param {number} y - The y value.
+     */
     function API() {
-        this.canvas = new _exports_ts_1.Canvas();
-        this.gameObject = new _exports_ts_1.GameObject();
+        this.canvas = new _exports_1.Canvas();
+        this.gameObject = new _exports_1.GameObject();
         this.ctx = this.canvas.getCtx();
     }
     API.prototype.init = function (configuration) {
@@ -9062,7 +9068,12 @@ var API = /** @class */function () {
                 this.gameObject.createRect(this.ctx, params);
                 break;
             case 'arc':
-                this.gameObject.createArc(this.ctx, params);
+                var arcSettings = params;
+                if (!arcSettings.startAngle) arcSettings.startAngle = 0;
+                if (!arcSettings.endAngle) arcSettings.endAngle = Math.PI * 2;
+                if (!arcSettings.anticlockwise) arcSettings.anticlockwise = false;
+                console.log(arcSettings);
+                this.gameObject.createArc(this.ctx, arcSettings);
                 break;
         }
     };

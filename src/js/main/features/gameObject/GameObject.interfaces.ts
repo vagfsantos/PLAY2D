@@ -1,19 +1,5 @@
-export interface $Rect {
-
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  background: string
+export abstract class $GameObject {
+  abstract init( initMethod: Function ): void
+  abstract update( updateMethod: Function ): void
+  abstract render( updateMethod: Function ): void
 }
-
-export interface $Arc {
-
-    x: number;
-    y: number;
-    radius: number;
-    startAngle?: number;
-    endAngle?: number;
-    anticlockwise?: boolean;
-    background: string;
-  }

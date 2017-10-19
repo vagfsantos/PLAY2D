@@ -11,15 +11,19 @@ Play2D.init({
   height: 300
 })
 
-Play2D.createGameObject('rect', {
+let rect = Play2D.createDraw('rect', {
   x: 50,
   y: 20,
   width: 100,
   height: 100,
   background: '#000'
-})
+});
 
-Play2D.createGameObject('arc', {
+rect.setUpdate(function(){
+  this.x++
+});
+
+Play2D.createDraw('arc', {
   x: 50,
   y: 200,
   radius: 50,

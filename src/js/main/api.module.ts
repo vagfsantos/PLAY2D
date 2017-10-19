@@ -3,6 +3,8 @@ import {
     $CanvasConfiguration,
 
     GameObject,
+
+    DrawUtil,
     $Rect,
     $Arc
 } from "./features/_exports";
@@ -15,6 +17,7 @@ class API {
     private canvas = new Canvas();
     private ctx: CanvasRenderingContext2D;
     private gameObject = new GameObject();
+    private drawUtil = DrawUtil;
 
     constructor() {
 
@@ -27,24 +30,18 @@ class API {
         return this;
     }
 
-    createGameObject(type: string, params: Object) {
+    createDraw(type: string, params: Object): GameObject {
 
       switch( type ) {
-
         case 'rect':
-          this.gameObject.createRect(this.ctx, params as $Rect );
-        break;
+          return this.drawUtil.rect(this.ctx, params as $Rect );
 
         case 'arc':
           let arcSettings = params as $Arc;
-
           if( !arcSettings.startAngle ) arcSettings.startAngle = 0;
           if( !arcSettings.endAngle ) arcSettings.endAngle = Math.PI * 2;
           if( !arcSettings.anticlockwise ) arcSettings.anticlockwise = false;
-
-          console.log(arcSettings);
-          this.gameObject.createArc(this.ctx, arcSettings);
-        break;
+          return this.drawUtil.arc(this.ctx, arcSettings);
       }
     }
 }
