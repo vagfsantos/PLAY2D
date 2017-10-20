@@ -12,6 +12,8 @@ export class GameObject {
 
   private _rigidBody: RigidBody;
 
+  private _hasColision: boolean = false;
+
   constructor() {
 
     this._rigidBody = new RigidBody(this);
@@ -68,10 +70,15 @@ export class GameObject {
   }
 
   rigidBody(...colisableProps: $ColisableArea[]) {
+    this._hasColision = true;
     this._rigidBody.setColisableArea(colisableProps);
 
     this.afterEachFrame(() => {
       this._rigidBody.renderOnMarkee();
     })
+  }
+
+  testColision() {
+
   }
 }
