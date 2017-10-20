@@ -9,6 +9,7 @@ export class Scene {
 
   render() {
     for( let object of this.gameObjects ) {
+      object.preUpdate();
       object.update();
       object.render();
     }

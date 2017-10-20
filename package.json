@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --color --open --hot --inline",
+    "start": "webpack --watch",
     "build": "webpack --display-error-details"
   },
   "repository": {

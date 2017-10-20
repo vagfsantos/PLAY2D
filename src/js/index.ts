@@ -8,7 +8,7 @@ window.Play2D = Play2D;
 
 Play2D.init({
   width: 500,
-  height: 300
+  height: 800
 })
 
 let rect = Play2D.createDraw('rect', {
@@ -18,6 +18,8 @@ let rect = Play2D.createDraw('rect', {
   height: 100,
   background: '#000'
 });
+
+rect.applyPhysics();
 
 rect.onUpdate(function(){
   this.x++

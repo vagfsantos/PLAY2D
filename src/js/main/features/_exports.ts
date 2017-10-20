@@ -21,3 +21,7 @@ export * from "./world/World.interfaces";
 // GameLoop
 export * from "./gameLoop/GameLoop.feature";
 export * from "./gameLoop/GameLoop.interfaces";
+
+// Gravity
+export * from "./gravity/Gravity.feature";
+export * from "./gravity/Gravity.interfaces";
