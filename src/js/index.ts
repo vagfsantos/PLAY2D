@@ -8,7 +8,7 @@ window.Play2D = Play2D;
 
 Play2D.init({
   width: 500,
-  height: 800
+  height: 400
 })
 
 let rect = Play2D.createDraw('rect', {
@@ -23,19 +23,36 @@ let floor = Play2D.createDraw('rect', {
   x: 0,
   y: 'bottom',
   width: 500,
-  height: 100,
+  height: 20,
   background: '#000'
 });
 
-rect.applyPhysics();
-
-rect.onUpdate(function(){
+rect.eachFrame(function(){
   this.x++
 });
 
+rect.setGravity();
+
+rect.rigidBody({
+  x: 5,
+  y: 5,
+  width: 90,
+  height: 90
+});
+
+floor.rigidBody({
+  x: 10,
+  y: 5,
+  width: 480,
+  height: 10
+});
+
+
 var world = Play2D.createWorld('fase 1');
 var scene = Play2D.createScene();
-scene.add(rect);
+scene
+  .add(rect)
+  .add(floor)
 
 world.add(scene).render();
 

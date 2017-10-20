@@ -25,3 +25,7 @@ export * from "./gameLoop/GameLoop.interfaces";
 // Gravity
 export * from "./gravity/Gravity.feature";
 export * from "./gravity/Gravity.interfaces";
+
+// RigidBody
+export * from "./rigidBody/RigidBody.feature";
+export * from "./rigidBody/RigidBody.interfaces";

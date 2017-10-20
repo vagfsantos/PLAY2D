@@ -1866,6 +1866,8 @@ __export(__webpack_require__(337));
 // Gravity
 __export(__webpack_require__(338));
 __export(__webpack_require__(339));
+// RigidBody
+__export(__webpack_require__(340));
 
 /***/ }),
 /* 64 */
@@ -3741,7 +3743,7 @@ var api_module_1 = __webpack_require__(328);
 window.Play2D = api_module_1.Play2D;
 api_module_1.Play2D.init({
     width: 500,
-    height: 800
+    height: 400
 });
 var rect = api_module_1.Play2D.createDraw('rect', {
     x: 50,
@@ -3754,16 +3756,28 @@ var floor = api_module_1.Play2D.createDraw('rect', {
     x: 0,
     y: 'bottom',
     width: 500,
-    height: 100,
+    height: 20,
     background: '#000'
 });
-rect.applyPhysics();
-rect.onUpdate(function () {
+rect.eachFrame(function () {
     this.x++;
+});
+rect.setGravity();
+rect.rigidBody({
+    x: 5,
+    y: 5,
+    width: 90,
+    height: 90
+});
+floor.rigidBody({
+    x: 10,
+    y: 5,
+    width: 480,
+    height: 10
 });
 var world = api_module_1.Play2D.createWorld('fase 1');
 var scene = api_module_1.Play2D.createScene();
-scene.add(rect);
+scene.add(rect).add(floor);
 world.add(scene).render();
 api_module_1.Play2D.createDraw('arc', {
     x: 50,
@@ -9149,8 +9163,8 @@ exports.Play2D = new API();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Canvas = /** @class */function () {
     function Canvas() {
-        this._canvasElement = document.createElement('canvas');
-        this._ctx = this._canvasElement.getContext('2d');
+        this._canvasElement = Canvas.tag = document.createElement('canvas');
+        this._ctx = Canvas.ctx = this._canvasElement.getContext('2d');
     }
     Canvas.prototype.getCanvasDimensions = function () {
         return {
@@ -9185,29 +9199,61 @@ var _exports_1 = __webpack_require__(63);
 var GameObject = /** @class */function () {
     function GameObject() {
         this.beforeUpdateActions = [];
+        this.updateActions = [];
+        this.renderActions = [];
+        this._rigidBody = new _exports_1.RigidBody(this);
     }
     GameObject.prototype.setConfig = function (config) {
         this.config = config;
     };
-    GameObject.prototype.setInit = function (init) {
-        this.init = init.bind(this.config);
-        this.render = init.bind(this.config);
+    GameObject.prototype.getConfig = function () {
+        return this.config;
+    };
+    GameObject.prototype.setInit = function (action) {
+        this.init = action.bind(this.config);
+        this.afterEachFrame(action.bind(this.config));
+    };
+    GameObject.prototype.update = function () {
+        for (var _i = 0, _a = this.updateActions; _i < _a.length; _i++) {
+            var action = _a[_i];
+            if (action.call) action();
+        }
+    };
+    GameObject.prototype.render = function () {
+        for (var _i = 0, _a = this.renderActions; _i < _a.length; _i++) {
+            var action = _a[_i];
+            if (action.call) action();
+        }
     };
     GameObject.prototype.setPreUpdate = function (preUpdate) {
         this.beforeUpdateActions.push(preUpdate);
     };
-    GameObject.prototype.onUpdate = function (update) {
-        this.update = update.bind(this.config);
+    GameObject.prototype.eachFrame = function (update) {
+        this.updateActions.push(update.bind(this.config));
     };
-    GameObject.prototype.applyPhysics = function () {
-        var gravity = new _exports_1.Gravity();
-        this.setPreUpdate(gravity.fall().bind(this.config));
+    GameObject.prototype.afterEachFrame = function (action) {
+        this.renderActions.push(action.bind(this.config));
     };
     GameObject.prototype.preUpdate = function () {
         for (var _i = 0, _a = this.beforeUpdateActions; _i < _a.length; _i++) {
             var actions = _a[_i];
             actions();
         }
+    };
+    GameObject.prototype.setGravity = function () {
+        var gravity = new _exports_1.Gravity();
+        this.setPreUpdate(gravity.fall().bind(this.config));
+    };
+    GameObject.prototype.rigidBody = function () {
+        var _this = this;
+        var colisableProps = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            colisableProps[_i] = arguments[_i];
+        }
+        this._rigidBody.setColisableArea(colisableProps);
+        this.afterEachFrame(function () {
+            _this._rigidBody.renderOnMarkee();
+        });
     };
     return GameObject;
 }();
@@ -9278,13 +9324,14 @@ var Scene = /** @class */function () {
     }
     Scene.prototype.add = function (object) {
         this.gameObjects.push(object);
+        return this;
     };
     Scene.prototype.render = function () {
         for (var _i = 0, _a = this.gameObjects; _i < _a.length; _i++) {
             var object = _a[_i];
-            object.preUpdate();
-            object.update();
-            object.render();
+            if (object.preUpdate) object.preUpdate();
+            if (object.update) object.update();
+            if (object.render) object.render();
         }
     };
     return Scene;
@@ -9418,6 +9465,40 @@ var GravityInterface = /** @class */function () {
     return GravityInterface;
 }();
 exports.GravityInterface = GravityInterface;
+
+/***/ }),
+/* 340 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var _exports_1 = __webpack_require__(63);
+var RigidBody = /** @class */function () {
+    function RigidBody(gameObject) {
+        this._colisableAreas = [];
+        this._gameObjectInfo = gameObject;
+    }
+    RigidBody.prototype.setColisableArea = function (colisablePros) {
+        this._colisableAreas.push(colisablePros);
+    };
+    RigidBody.prototype.getColisableAreas = function () {
+        return [].concat(this._colisableAreas);
+    };
+    RigidBody.prototype.renderOnMarkee = function () {
+        for (var _i = 0, _a = this._colisableAreas; _i < _a.length; _i++) {
+            var areasArray = _a[_i];
+            for (var _b = 0, areasArray_1 = areasArray; _b < areasArray_1.length; _b++) {
+                var area = areasArray_1[_b];
+                _exports_1.Canvas.ctx.strokeStyle = 'red';
+                _exports_1.Canvas.ctx.strokeRect(this._gameObjectInfo.getConfig().x + area.x, this._gameObjectInfo.getConfig().y + area.y, area.width, area.height);
+            }
+        }
+    };
+    return RigidBody;
+}();
+exports.RigidBody = RigidBody;
 
 /***/ })
 /******/ ]);

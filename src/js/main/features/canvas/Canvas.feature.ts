@@ -5,10 +5,13 @@ export class Canvas {
     private _canvasElement: HTMLCanvasElement;
     private _ctx: CanvasRenderingContext2D;
 
+    static tag: HTMLCanvasElement;
+    static ctx: CanvasRenderingContext2D;
+
     constructor() {
 
-        this._canvasElement = document.createElement('canvas');
-        this._ctx = this._canvasElement.getContext('2d')
+        this._canvasElement = Canvas.tag = document.createElement('canvas');
+        this._ctx = Canvas.ctx = this._canvasElement.getContext('2d')
     }
 
     getCanvasDimensions(): any {
