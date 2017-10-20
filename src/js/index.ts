@@ -19,6 +19,14 @@ let rect = Play2D.createDraw('rect', {
   background: '#000'
 });
 
+let floor = Play2D.createDraw('rect', {
+  x: 0,
+  y: 'bottom',
+  width: 500,
+  height: 100,
+  background: '#000'
+});
+
 rect.applyPhysics();
 
 rect.onUpdate(function(){

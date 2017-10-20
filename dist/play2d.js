@@ -3750,6 +3750,13 @@ var rect = api_module_1.Play2D.createDraw('rect', {
     height: 100,
     background: '#000'
 });
+var floor = api_module_1.Play2D.createDraw('rect', {
+    x: 0,
+    y: 'bottom',
+    width: 500,
+    height: 100,
+    background: '#000'
+});
 rect.applyPhysics();
 rect.onUpdate(function () {
     this.x++;
@@ -9098,8 +9105,21 @@ var API = /** @class */function () {
         return this;
     };
     API.prototype.createDraw = function (type, params) {
+        var canvasDimensions = this._canvas.getCanvasDimensions();
         switch (type) {
             case 'rect':
+                if (params.y === 'top') {
+                    params.y = 0;
+                }
+                if (params.y === 'bottom') {
+                    params.y = canvasDimensions.height - params.height;
+                }
+                if (params.x === 'left') {
+                    params.x = 0;
+                }
+                if (params.x === 'right') {
+                    params.x = canvasDimensions.width - params.width;
+                }
                 return this._drawUtil.rect(this._ctx, params);
             case 'arc':
                 var arcSettings = params;
@@ -9132,6 +9152,12 @@ var Canvas = /** @class */function () {
         this._canvasElement = document.createElement('canvas');
         this._ctx = this._canvasElement.getContext('2d');
     }
+    Canvas.prototype.getCanvasDimensions = function () {
+        return {
+            width: this._canvasElement.width,
+            height: this._canvasElement.height
+        };
+    };
     Canvas.prototype.getCtx = function () {
         return this._ctx;
     };

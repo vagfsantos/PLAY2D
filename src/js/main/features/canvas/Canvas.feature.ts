@@ -11,6 +11,13 @@ export class Canvas {
         this._ctx = this._canvasElement.getContext('2d')
     }
 
+    getCanvasDimensions(): any {
+      return {
+        width: this._canvasElement.width,
+        height: this._canvasElement.height
+      }
+    }
+
     getCtx(): CanvasRenderingContext2D {
       return this._ctx;
     }

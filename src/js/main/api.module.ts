@@ -33,10 +33,24 @@ class API {
         return this;
     }
 
-    createDraw(type: string, params: Object): GameObject {
+    createDraw(type: string, params: any): GameObject {
+
+      let canvasDimensions = this._canvas.getCanvasDimensions();
 
       switch( type ) {
         case 'rect':
+          if( params.y === 'top' ) {
+            params.y = 0;
+          }
+          if( params.y === 'bottom' ) {
+            params.y = canvasDimensions.height - params.height;
+          }
+          if( params.x === 'left' ) {
+            params.x = 0;
+          }
+          if( params.x === 'right' ) {
+            params.x = canvasDimensions.width - params.width;
+          }
           return this._drawUtil.rect(this._ctx, params as $Rect );
 
         case 'arc':
