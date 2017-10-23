@@ -1,4 +1,4 @@
-import { $CanvasConfiguration } from './Canvas.interfaces';
+import { $CanvasConfiguration, $CanvasDimensions } from './Canvas.interfaces';
 
 /*
 * Canvas
@@ -19,7 +19,7 @@ export class Canvas {
   * tag: It Serves the Singleton instance of the canvas html element
   * ctx: It Serves the Singleton instance of the rendering context 2D
   */
-  static tag: HTMLCanvasElement;
+  static tagHTML: HTMLCanvasElement;
   static ctx: CanvasRenderingContext2D;
 
   /*
@@ -28,18 +28,25 @@ export class Canvas {
   */
   constructor() {
 
-    this._canvasElement = Canvas.tag = document.createElement('canvas');
+    this._canvasElement = Canvas.tagHTML = document.createElement('canvas');
     this._ctx = Canvas.ctx = this._canvasElement.getContext('2d')
   }
 
   /*
   * It returns the canvas dimensions
   */
-  getCanvasDimensions(): any {
+  getCanvasDimensions(): $CanvasDimensions {
     return {
       width: this._canvasElement.width,
       height: this._canvasElement.height
     }
+  }
+
+  /*
+  * It returns the canvas html tag
+  */
+  getTagHTML(): HTMLCanvasElement {
+    return this._canvasElement;
   }
 
   /*
