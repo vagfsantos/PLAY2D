@@ -1,4 +1,4 @@
-import { Gravity, RigidBody, $ColisableArea } from "../_exports";
+import { Gravity, RigidBody, $ColisableArea, $GameObjectConfig } from "../_exports";
 
 /*
 * GameObject
@@ -14,14 +14,14 @@ export class GameObject {
   /*
   * custom configuration for each object
   */
-  private config: any;
+  private _config: $GameObjectConfig;
 
   /*
   * Queue of functions to be executed each frame in diferents moments
   */
-  private beforeUpdateActions: Function[] = [];
-  private updateActions: Function[] = [];
-  private renderActions: Function[] = [];
+  private _beforeUpdateActions: Function[] = [];
+  private _updateActions: Function[] = [];
+  private _renderActions: Function[] = [];
 
   /*
   * Where can be placed an instance of a RigidBody
@@ -42,34 +42,66 @@ export class GameObject {
   }
 
   /*
+  * setter for beforeUpdateActions, functions is passed as parameters and they are added into the properly queue
+  */
+  private setPreUpdate(preUpdate: Function) {
+    this._beforeUpdateActions.push(preUpdate);
+  }
+
+  /*
+  * public interface that allows functions be enqueued for performing some action into the object each frame
+  */
+  public eachFrame(update: Function): void {
+
+    this._updateActions.push( update.bind(this._config) );
+  }
+
+  /*
+  * public interface that allows functions be enqueued for performing some action into the object when all the update methods was called
+  */
+  public afterEachFrame(action: Function) {
+    this._renderActions.push( action.bind(this._config) );
+  }
+
+  /*
   * getter for _config
   */
-  getConfig() {
-    return this.config;
+  public getConfig(): $GameObjectConfig {
+    return this._config;
   }
 
   /*
   * setter for _config
   */
-  setConfig(config) {
-    this.config = config;
+  public setConfig(config): void {
+    this._config = config;
   }
 
   /*
   * setter for init
   */
-  setInit(action: Function): void {
+  public setInit(action: Function): void {
 
-    this.init = action.bind( this.config );
-    this.afterEachFrame( action.bind( this.config ) )
+    this.init = action.bind( this._config );
+    this.afterEachFrame( action.bind( this._config ) )
+  }
+
+  /*
+  * It looping for all the beforeUpdateActions and calls each one when it is requested
+  * Before Update Actions is usually for Physyscs
+  */
+  public preUpdate() {
+    for( let actions of this._beforeUpdateActions ) {
+      actions();
+    }
   }
 
   /*
   * It looping for all the updateActions and calls each one when it is requested
   * Update Actions is function to be ran before render the scene
   */
-  update() {
-    for(let action of this.updateActions ) {
+  public update(): void {
+    for(let action of this._updateActions ) {
       if( action.call ) action();
     }
   }
@@ -78,56 +110,24 @@ export class GameObject {
   * It looping for all the renderActions and calls each one when it is requested
   * Render Actions is usually to display the object
   */
-  render() {
-    for(let action of this.renderActions ) {
+  public render(): void {
+    for(let action of this._renderActions ) {
       if( action.call ) action();
-    }
-  }
-
-  /*
-  * setter for beforeUpdateActions, functions is passed as parameters and they are added into the properly queue
-  */
-  private setPreUpdate(preUpdate: Function) {
-    this.beforeUpdateActions.push(preUpdate);
-  }
-
-  /*
-  * public interface that allows functions be enqueued for performing some action into the object each frame
-  */
-  eachFrame(update: Function): void {
-
-    this.updateActions.push( update.bind(this.config) );
-  }
-
-  /*
-  * public interface that allows functions be enqueued for performing some action into the object when all the update methods was called
-  */
-  afterEachFrame(action: Function) {
-    this.renderActions.push( action.bind(this.config) );
-  }
-
-  /*
-  * It looping for all the beforeUpdateActions and calls each one when it is requested
-  * Before Update Actions is usually for Physyscs
-  */
-  preUpdate() {
-    for( let actions of this.beforeUpdateActions ) {
-      actions();
     }
   }
 
   /*
   * It Apllies gravity to the object
   */
-  setGravity() {
+  public setGravity() {
     let gravity = new Gravity();
-    this.setPreUpdate( gravity.fall().bind(this.config) )
+    this.setPreUpdate( gravity.fall().bind(this._config) )
   }
 
   /*
   * It Makes the object a rigid form, with weight, mass and colision
   */
-  rigidBody(...colisableProps: $ColisableArea[]) {
+  public rigidBody(...colisableProps: $ColisableArea[]) {
     this._hasColision = true;
     this._rigidBody.setColisableArea(colisableProps);
 
@@ -136,7 +136,7 @@ export class GameObject {
     })
   }
 
-  testColision() {
+  public testColision() {
 
   }
 }
