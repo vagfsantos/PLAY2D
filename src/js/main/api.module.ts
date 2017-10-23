@@ -51,14 +51,14 @@ class API {
           if( params.x === 'right' ) {
             params.x = canvasDimensions.width - params.width;
           }
-          return this._drawUtil.rect(this._ctx, params as $Rect );
+          return this._drawUtil.rect(params as $Rect );
 
         case 'arc':
           let arcSettings = params as $Arc;
           if( !arcSettings.startAngle ) arcSettings.startAngle = 0;
           if( !arcSettings.endAngle ) arcSettings.endAngle = Math.PI * 2;
           if( !arcSettings.anticlockwise ) arcSettings.anticlockwise = false;
-          return this._drawUtil.arc(this._ctx, arcSettings);
+          return this._drawUtil.arc(arcSettings);
       }
     }
 

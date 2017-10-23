@@ -36,6 +36,7 @@ export class Canvas {
   * It returns the canvas dimensions
   */
   getCanvasDimensions(): $CanvasDimensions {
+
     return {
       width: this._canvasElement.width,
       height: this._canvasElement.height
@@ -46,6 +47,7 @@ export class Canvas {
   * It returns the canvas html tag
   */
   getTagHTML(): HTMLCanvasElement {
+
     return this._canvasElement;
   }
 
@@ -53,6 +55,7 @@ export class Canvas {
   * It returns the canvas rendering context 2D
   */
   getCtx(): CanvasRenderingContext2D {
+
     return this._ctx;
   }
 
@@ -63,14 +66,14 @@ export class Canvas {
 
     this._canvasElement.width = configuration.width;
     this._canvasElement.height = configuration.height;
-
     document.querySelector('body').appendChild(this._canvasElement);
   }
 
   /*
   * It removes all previous drawings into the canvas
   */
-  clean() {
+  clean(): void {
+
     this._ctx.clearRect(0, 0, this._canvasElement.width, this._canvasElement.height);
   }
 }
