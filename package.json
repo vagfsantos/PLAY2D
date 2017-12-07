@@ -1,0 +1,22 @@
+{
+  "name": "play2d",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vagfsantos/PLAY2D.git"
+  },
+  "author": "Vagner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vagfsantos/PLAY2D/issues"
+  },
+  "homepage": "https://github.com/vagfsantos/PLAY2D#readme",
+  "devDependencies": {
+    "typescript": "^2.6.2"
+  }
+}
