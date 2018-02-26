@@ -2,6 +2,6 @@ export class Game
 {
   
   init() {
-    console.log('ok')
+    console.log('okss')
   }
 }
