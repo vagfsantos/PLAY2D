@@ -1,2 +1,4 @@
 import { Game } from './src/Game/Game'
-export { Game }
+import { Assets } from './src/Assets/Assets';
+
+export { Game, Assets }
