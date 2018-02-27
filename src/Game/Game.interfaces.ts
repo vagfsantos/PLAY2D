@@ -3,11 +3,11 @@ export interface GameInterface {
     __canvas: HTMLCanvasElement,
     __configuration: CanvasConfigurationInterface,
 
-    __init(): void,
-    __setUp(): void,
-    __appendCanvasToBody(): void,
+    __init(config: CanvasConfigurationInterface): void,
+    __setUp(config: CanvasConfigurationInterface): void,
+    __appendCanvasTo(selector: string): void,
     
-    create(): GameInterface,
+    create(config: CanvasConfigurationInterface): GameInterface,
 
     getCanvas(): HTMLCanvasElement,
     getConfiguration(): CanvasConfigurationInterface,
@@ -17,7 +17,10 @@ export interface GameInterface {
 }
 
 export interface CanvasConfigurationInterface {
-    
-    width: number,
-    height: number
+
+    name?: string,
+    selector?: string,
+
+    width?: number,
+    height?: number
 }

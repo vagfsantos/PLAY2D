@@ -18,30 +18,34 @@ let Game: GameInterface = {
   /**
    * Init all methods needed to construct a Game object properly
    */
-  __init(): void {
-
-    this.__setUp()
-    this.__appendCanvasToBody()
+  __init(config: CanvasConfigurationInterface): void {
+    console.log(config)
+    this.__setUp(config)
+    this.__appendCanvasTo(config.selector)
+    this.setConfiguration(this.getConfiguration())
   },
 
   /**
    * Generate the canvas instance and set a default configuration
    */
-  __setUp(): void {
+  __setUp(config: CanvasConfigurationInterface): void {
 
     this.__canvas = document.createElement('canvas')
+
     this.__configuration = {
-      width: 500,
-      height: 500
+      name: config.name || 'game',
+      selector: config.selector || 'body',
+      width: config.width || 500,
+      height: config.height || 500
     }
   },
 
   /**
-   * Append the canvas element to body
+   * Append the canvas element to a selector
    */
-  __appendCanvasToBody(): void {
+  __appendCanvasTo(selector: string): void {
     
-    document.body.appendChild( this.getCanvas() )
+    document.querySelector(selector).appendChild(this.getCanvas())
   },
   
 
@@ -50,10 +54,10 @@ let Game: GameInterface = {
    * Create a proper game scope
    * @return {GameInterface} A game scope
    */
-  create(): GameInterface {
+  create(config?: CanvasConfigurationInterface): GameInterface {
 
     let game = Object.create(this)
-    game.__init()
+    game.__init.apply(this, [config || {}])
     return game
   },
 
@@ -70,7 +74,7 @@ let Game: GameInterface = {
    */
   getConfiguration(): CanvasConfigurationInterface {
     
-    return Object.create(this.__configuration)
+    return this.__configuration
   },
   
   /**
