@@ -1,45 +1,87 @@
-import { CanvasConfiguration } from "./Game.interfaces";
+import { GameInterface, CanvasConfigurationInterface } from "./Game.interfaces";
 
-class Game {
+/**
+ * Main Game object, used to contruct new game scopes
+ */
+let Game: GameInterface = {
 
-  static canvas: HTMLCanvasElement = document.createElement('canvas')
-  private configuration: CanvasConfiguration
+  /**
+   * Holds the canvas singleton instance of the DOM
+   */
+  __canvas: {} as HTMLCanvasElement,
 
-  constructor(width: number, height:number) {
+  /**
+   * Holds all configuration that should be set up into canvas element
+   */
+  __configuration: {} as CanvasConfigurationInterface,
+  
+  /**
+   * Init all methods needed to construct a Game object properly
+   */
+  __init(): void {
 
-    this.configuration = {
-      width,
-      height
+    this.__setUp()
+    this.__appendCanvasToBody()
+  },
+
+  /**
+   * Generate the canvas instance and set a default configuration
+   */
+  __setUp(): void {
+
+    this.__canvas = document.createElement('canvas')
+    this.__configuration = {
+      width: 500,
+      height: 500
     }
+  },
 
-    this.setConfiguration(this.configuration)
-    this.init()
-  }
+  /**
+   * Append the canvas element to body
+   */
+  __appendCanvasToBody(): void {
+    
+    document.body.appendChild( this.getCanvas() )
+  },
+  
 
-  init() {
-    this.appendCanvasToBody()
-  }
 
-  appendCanvasToBody() {
+  /**
+   * Create a proper game scope
+   * @return {GameInterface} A game scope
+   */
+  create(): GameInterface {
 
-    document.body.appendChild(Game.canvas)
-  }
+    let game = Object.create(this)
+    game.__init()
+    return game
+  },
 
-  getCanvas() {
+  /**
+   * return canvas element
+   */
+  getCanvas(): HTMLCanvasElement {
+    
+    return this.__canvas
+  },
 
-    return Game.canvas
-  }
-
-  getConfiguration() {
-
-    return this.configuration
-  }
-
-  setConfiguration(newConfiguration: CanvasConfiguration) {
-
-    this.configuration = newConfiguration
-    Game.canvas.width = this.configuration.width
-    Game.canvas.height = this.configuration.height
+  /**
+   * return a copy of configuration object
+   */
+  getConfiguration(): CanvasConfigurationInterface {
+    
+    return Object.create(this.__configuration)
+  },
+  
+  /**
+   * Change any configuration
+   * @param newConfiguration A new configuration object
+   */
+  setConfiguration(newConfiguration: CanvasConfigurationInterface): void {
+    
+    this.__configuration = newConfiguration
+    this.__canvas.width = this.__configuration.width
+    this.__canvas.height = this.__configuration.height
   }
 }
 
