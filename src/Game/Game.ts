@@ -1,20 +1,45 @@
-class Game
-{
-  canvas: HTMLCanvasElement;
+import { CanvasConfiguration } from "./Game.interfaces";
 
-  constructor() {
+class Game {
 
-    this.canvas = document.createElement('canvas')
+  static canvas: HTMLCanvasElement = document.createElement('canvas')
+  private configuration: CanvasConfiguration
+
+  constructor(width: number, height:number) {
+
+    this.configuration = {
+      width,
+      height
+    }
+
+    this.setConfiguration(this.configuration)
+    this.init()
+  }
+
+  init() {
+    this.appendCanvasToBody()
+  }
+
+  appendCanvasToBody() {
+
+    document.body.appendChild(Game.canvas)
   }
 
   getCanvas() {
 
-    return this.canvas
+    return Game.canvas
   }
 
-  init() {
-    
-    console.log('okss')
+  getConfiguration() {
+
+    return this.configuration
+  }
+
+  setConfiguration(newConfiguration: CanvasConfiguration) {
+
+    this.configuration = newConfiguration
+    Game.canvas.width = this.configuration.width
+    Game.canvas.height = this.configuration.height
   }
 }
 
