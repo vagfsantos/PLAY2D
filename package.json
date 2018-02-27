@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc -w"
+    "start": "rimraf ./SuperVegBoy/lib/** && tsc -w",
+    "ts": "tsc"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/vagfsantos/PLAY2D#readme",
   "devDependencies": {
+    "rimraf": "^2.6.2",
     "typescript": "^2.7.2"
   }
 }
