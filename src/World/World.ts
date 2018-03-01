@@ -2,7 +2,7 @@ import { Scene } from "../Scene/Scene";
 
 /**
  * World
- * A placeholder for save scenes and organize the user ideias of the game
+ * A placeholder for saving scenes and organize the user ideias of the game
  */
 export class World {
 
@@ -66,6 +66,7 @@ export class World {
     let currentScene = this.__scenes[this.__currentScene]
     if( currentScene ) {
 
+      currentScene.setRenderStateTo(true)
       currentScene.render()
     } else {
 
