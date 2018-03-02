@@ -1,5 +1,7 @@
 import { GameObject } from "../GameObject/GameObject";
 import { GameInterface } from "../Game/Game.interfaces";
+import { Map } from "../Map/Map";
+import { Assets } from "../Assets/Assets";
 
 /**
  * Scene
@@ -12,6 +14,12 @@ export class Scene {
    * Canvas elment extracted from game
    */
   __canvas: HTMLCanvasElement = {} as HTMLCanvasElement
+  __ctx: CanvasRenderingContext2D = {} as CanvasRenderingContext2D
+
+  /**
+   * Game objects that belongs to the scenes
+   */
+  __gameMaps: Map[] = []
 
   /**
    * Game objects that belongs to the scenes
@@ -29,6 +37,7 @@ export class Scene {
   constructor(game: GameInterface) {
 
     this.__canvas = game.getCanvas()
+    this.__ctx = this.__canvas.getContext('2d')
   }
 
 
@@ -67,6 +76,28 @@ export class Scene {
   }
 
   /**
+   * Adds maps objects to the scene
+   */
+  addMap(JSONMapName: string) {
+    
+    let map = new Map(JSONMapName)
+    this.__gameMaps.push(map)
+  }
+
+  renderMap() {
+
+    for(let map of this.__gameMaps) {
+
+      map.render(this.__ctx)
+    }
+  }
+
+  cleanScene() {
+
+    this.__ctx.clearRect(0,0, this.__canvas.width, this.__canvas.height)
+  }
+
+  /**
    * Handles the update for each game object
    */
   handlerUpdate() {
@@ -82,11 +113,9 @@ export class Scene {
    */
   handlerDraw() {
 
-    let canvasContext = this.__canvas.getContext('2d')
-
     this.__forEachGameObject((gameObject: GameObject)=>{
 
-      gameObject.draw(canvasContext)
+      gameObject.draw(this.__ctx)
     })
   }
 
@@ -96,11 +125,18 @@ export class Scene {
   render() {
     
     window.requestAnimationFrame(()=>{
-      
+
+      console.log('ok', Assets.isAssetsReady())
       if( this.__isBeingRendered ) {
         
-        this.handlerUpdate()
-        this.handlerDraw()
+        if( Assets.isAssetsReady() ) {
+
+          this.cleanScene()
+          this.renderMap()
+          this.handlerUpdate()
+          this.handlerDraw()
+        }
+        
         this.render()
       }
     })
