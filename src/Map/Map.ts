@@ -4,13 +4,42 @@ import { GameObject } from "../GameObject/GameObject";
 import { Assets } from "../Assets/Assets";
 
 export class Map {
+
+  /**
+   * Map name
+   */
   __name: string = ''
+
+  /**
+   * Path for map JSON data
+   */
   __JSONPath: string = ''
+
+  /**
+   * Path for map image
+   */
   __image: any = {} as any
+
+  /**
+   * Each title of the map
+   */
   __tiles: Tile[] = []
+
+  /**
+   * Colider areas into the map
+   */
   __coliders: GameObject[] = []
+
+  /**
+   * Debug mode, shows the titles on screen
+   */
   __debugMode: boolean = true
   
+
+  /**
+   * Requires a name, the identifier of the JSON map and Image map
+   * It requires the JSON, and start all methods needed for initialization
+   */
   constructor(JSONMapName: string) {
     
     this.__name = JSONMapName
@@ -21,6 +50,9 @@ export class Map {
     this.__init()
   }
   
+  /**
+   * Gets the map on server
+   */
   __getMap() {
     
     return fetch(this.__JSONPath).then((data)=>{
@@ -29,16 +61,22 @@ export class Map {
     })
   }
   
+  /**
+   * Inits all basic functionalities after getting the map data
+   */
   __init() {
     
     this.__getMap()
     .then((map)=>{
       
       this.__createTileGrid(map)
-      this.__createSolidTiles(map)
+      this.__createColiderMapAreas(map)
     })
   }
   
+  /**
+   * Creates the tiled grid
+   */
   __createTileGrid(map: any) {
     
     let mapWidth = map.tilewidth * map.width
@@ -59,7 +97,10 @@ export class Map {
     }
   }
   
-  __createSolidTiles(map: any) {
+  /**
+   * Creates the colider areas of the map
+   */
+  __createColiderMapAreas(map: any) {
     
     if( map.layers ) {
       
@@ -85,6 +126,9 @@ export class Map {
     }
   }
   
+  /**
+   * Renders tiles in debug mode
+   */
   __renderTiles(ctx: CanvasRenderingContext2D) {
     
     for(let tile of this.__tiles) {
@@ -93,11 +137,17 @@ export class Map {
     }
   }
 
+  /**
+   * Renders the map image
+   */
   __renderMap(ctx: CanvasRenderingContext2D) {
-    console.log(this.__image)
+
     ctx.drawImage(this.__image, 0, 0, this.__image.width, this.__image.height)
   }
   
+  /**
+   * Calls render methods of tiles and map image
+   */
   render(ctx: CanvasRenderingContext2D) {
     
     this.__renderMap(ctx)

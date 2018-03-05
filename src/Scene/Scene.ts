@@ -84,6 +84,9 @@ export class Scene {
     this.__gameMaps.push(map)
   }
 
+  /**
+   * Calls render actions of all game maps added to this scene
+   */
   renderMap() {
 
     for(let map of this.__gameMaps) {
@@ -92,6 +95,9 @@ export class Scene {
     }
   }
 
+  /**
+   * Cleans the canvas
+   */
   cleanScene() {
 
     this.__ctx.clearRect(0,0, this.__canvas.width, this.__canvas.height)
@@ -124,13 +130,24 @@ export class Scene {
    */
   render() {
     
+    /**
+     * Main loop
+     */
     window.requestAnimationFrame(()=>{
 
-      console.log('ok', Assets.isAssetsReady())
+      /**
+       * Checks if the scene can be rendered
+       */
       if( this.__isBeingRendered ) {
         
+        /**
+         * Checks if all assets was loaded
+         */
         if( Assets.isAssetsReady() ) {
 
+          /**
+           * Clean the canvas, then render the maps, then updates all data, finally renders it
+           */
           this.cleanScene()
           this.renderMap()
           this.handlerUpdate()

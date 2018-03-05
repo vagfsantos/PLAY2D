@@ -1,8 +1,15 @@
 import { GameObjectInterface, GameObjectAttrInterface } from "../../GameObject/GameObject.interfaces";
 import { GameObject } from "../../GameObject/GameObject";
 
+/**
+ * Creates tiles objects of maps
+ * Extends a game object
+ */
 export class Tile extends GameObject {
   
+  /**
+   * Requires a tile properties
+   */
   constructor(tileProperties: any) {
 
     super()
@@ -12,6 +19,10 @@ export class Tile extends GameObject {
     this.__attr.height = tileProperties.height
   }
 
+  /**
+   * Overwrites the draw method of the game objects
+   * Draws the tiles on screen for sake of debug
+   */
   draw(ctx: CanvasRenderingContext2D){
     
     ctx.strokeStyle = "#eee"
