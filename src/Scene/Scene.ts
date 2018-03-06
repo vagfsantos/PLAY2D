@@ -90,7 +90,7 @@ export class Scene {
   /**
    * Calls render actions of all game maps added to this scene
    */
-  renderMap() {
+  __renderMap() {
 
     for(let map of this.__gameMaps) {
 
@@ -101,7 +101,11 @@ export class Scene {
   setCamera(gameObj: GameObject) {
 
     this.__camera = new Camera(this.__canvas, this.__gameMaps, gameObj)
-    this.__gameObjects.unshift(this.__camera)
+  }
+
+  __handlerCamera() {
+    this.__camera.update()
+    this.__camera.draw(this.__ctx)
   }
 
   /**
@@ -115,7 +119,7 @@ export class Scene {
   /**
    * Handles the update for each game object
    */
-  handlerUpdate() {
+  __handlerUpdate() {
 
     this.__forEachGameObject((gameObject: GameObject)=>{
 
@@ -126,7 +130,7 @@ export class Scene {
   /**
    * Handles the drawing for each game object
    */
-  handlerDraw() {
+  __handlerDraw() {
 
     this.__forEachGameObject((gameObject: GameObject)=>{
 
@@ -152,20 +156,19 @@ export class Scene {
         /**
          * Checks if all assets was loaded
          */
-        var currentTime = new Date().getTime()
-        let elapsed = Math.abs(lastTime - currentTime)
         
-        console.log(elapsed)
-        if( Assets.isAssetsReady() && elapsed > 100) {
+        if( Assets.isAssetsReady() ) {
           
           /**
            * Clean the canvas, then render the maps, then updates all data, finally renders it
            */
+          this.__ctx.save()
           this.cleanScene()
-          this.renderMap()
-          this.handlerUpdate()
-          this.handlerDraw()
-          lastTime = currentTime
+          this.__handlerCamera()
+          this.__renderMap()
+          this.__handlerUpdate()
+          this.__handlerDraw()
+          this.__ctx.restore()
         }
         
         this.render()

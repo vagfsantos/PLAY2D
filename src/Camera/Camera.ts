@@ -85,17 +85,15 @@ class Camera extends GameObject {
 
           this.attr = {
             translate: {
-              x: x - 0.02
+              x: x - 1
             }
           }
         }
     })
 
     this.onDraw(function(ctx: CanvasRenderingContext2D){
-      // //console.log(this.attr)
-      // ctx.save()
-      // ctx.translate(this.attr.translate.x, 0)
-      // ctx.restore()
+
+      ctx.translate(this.attr.translate.x, 0)
     })
   }
 }
