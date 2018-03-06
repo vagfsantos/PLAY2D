@@ -2,6 +2,7 @@ import { GameObject } from "../GameObject/GameObject";
 import { GameInterface } from "../Game/Game.interfaces";
 import { Map } from "../Map/Map";
 import { Assets } from "../Assets/Assets";
+import { Camera } from "../Camera/Camera";
 
 /**
  * Scene
@@ -30,6 +31,8 @@ export class Scene {
    * Controls if the scene has being rendered
    */
   __isBeingRendered: boolean = false
+
+  __camera: Camera
 
   /**
    * Requires the game that this scene belongs to
@@ -95,6 +98,12 @@ export class Scene {
     }
   }
 
+  setCamera(gameObj: GameObject) {
+
+    this.__camera = new Camera(this.__canvas, this.__gameMaps, gameObj)
+    this.__gameObjects.unshift(this.__camera)
+  }
+
   /**
    * Cleans the canvas
    */
@@ -129,7 +138,7 @@ export class Scene {
    * Renders the current scene
    */
   render() {
-    
+    let lastTime = 0
     /**
      * Main loop
      */
@@ -143,8 +152,12 @@ export class Scene {
         /**
          * Checks if all assets was loaded
          */
-        if( Assets.isAssetsReady() ) {
-
+        var currentTime = new Date().getTime()
+        let elapsed = Math.abs(lastTime - currentTime)
+        
+        console.log(elapsed)
+        if( Assets.isAssetsReady() && elapsed > 100) {
+          
           /**
            * Clean the canvas, then render the maps, then updates all data, finally renders it
            */
@@ -152,6 +165,7 @@ export class Scene {
           this.renderMap()
           this.handlerUpdate()
           this.handlerDraw()
+          lastTime = currentTime
         }
         
         this.render()

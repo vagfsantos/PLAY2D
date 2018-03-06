@@ -53,7 +53,7 @@ export class Map {
   /**
    * Gets the map on server
    */
-  __getMap() {
+  getMapData() {
     
     return fetch(this.__JSONPath).then((data)=>{
       
@@ -66,8 +66,8 @@ export class Map {
    */
   __init() {
     
-    this.__getMap()
-    .then((map)=>{
+    this.getMapData()
+    .then((map: any)=>{
       
       this.__createTileGrid(map)
       this.__createColiderMapAreas(map)
