@@ -1,4 +1,5 @@
 import { GameObjectInterface, GameObjectAttrInterface } from "./GameObject.interfaces";
+import { Colider } from "../Colider/Colider";
 
 export class GameObject {
   
@@ -6,6 +7,9 @@ export class GameObject {
    * Custom atrributes of an game object
    */
   __attr: any = {}
+  
+  __coliderAreas : Colider[] = []
+  __debugMode: boolean = false
 
   /**
    * Methods to be performed before each frame
@@ -35,6 +39,37 @@ export class GameObject {
   get attr() {
 
     return this.__attr
+  }
+
+  addColiderBox(coliderInfo: any) {
+
+    let colider = new Colider()
+
+    colider.x = coliderInfo.x
+    colider.y = coliderInfo.y
+    colider.width = coliderInfo.width
+    colider.height = coliderInfo.height
+
+    this.__coliderAreas.push(colider)
+  }
+
+  __drawColiders(ctx: CanvasRenderingContext2D) {
+
+    for( let box of this.__coliderAreas ) {
+      
+        ctx.strokeStyle = "#f00"
+        ctx.strokeRect(
+          this.attr.x + box.x,
+          this.attr.y + box.y,
+          box.width,
+          box.height
+        )
+    }
+  }
+
+  activeDebugMode() {
+
+    this.__debugMode = true
   }
   
   /**
@@ -72,12 +107,18 @@ export class GameObject {
    */
   draw(ctx: CanvasRenderingContext2D) {
     
+    
     for( let action of this.__onDrawActions ) {
       
       if( action.call && action.apply ) {
         
         action.call(this, ctx)
       }
+    }
+
+    if( this.__debugMode ) {
+
+      this.__drawColiders(ctx)
     }
   }
 }

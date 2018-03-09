@@ -119,6 +119,14 @@ export class Map {
               isRigidBody: object.properties.solid || false
             }
             
+            coliderObject.addColiderBox({
+              x: 0,
+              y: 0,
+              width: object.width,
+              height: object.height
+            })
+
+            coliderObject.activeDebugMode()
             this.__coliders.push(coliderObject)
           })
         }
@@ -143,6 +151,11 @@ export class Map {
   __renderMap(ctx: CanvasRenderingContext2D) {
 
     ctx.drawImage(this.__image, 0, 0, this.__image.width, this.__image.height)
+    
+    for( let colider of this.__coliders ) {
+
+      colider.draw(ctx)
+    }
   }
   
   /**
