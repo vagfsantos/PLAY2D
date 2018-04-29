@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "rimraf ./SuperVegBoy/lib/** && babel ./src/**/*.js --watch -d SuperVegBoy/lib/ --copy-files"
+    "start": "rimraf ./SuperVegBoy/lib/** && babel ./src --watch --out-dir SuperVegBoy/lib/ --copy-files"
   },
   "repository": {
     "type": "git",
