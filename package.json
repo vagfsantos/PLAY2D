@@ -4,7 +4,10 @@
   "description": "",
   "main": "./bundle/index.js",
   "scripts": {
-    "start": "rollup -c"
+    "rimraf": "rimraf ./build",
+    "tsc": "tsc",
+    "rollup": "rollup -c",
+    "start": "npm run rimraf && watch-run -p './src/**/*.ts' npm run tsc && npm run rollup"
   },
   "repository": {
     "type": "git",
@@ -17,10 +20,14 @@
   },
   "homepage": "https://github.com/vagfsantos/PLAY2D#readme",
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "eslint": "^5.1.0",
     "eslint-config-google": "^0.9.1",
     "rimraf": "^2.6.2",
     "rollup": "^0.62.0",
+    "watch-run": "^1.2.5",
     "yarn": "^1.7.0"
+  },
+  "dependencies": {
+    "typescript": "^2.9.2"
   }
 }

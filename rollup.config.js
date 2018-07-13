@@ -1,7 +1,7 @@
 export default {
-  input: 'src/index.ts',
+  input: 'build/compiled/index.js',
   output: {
-    file: 'index.js',
+    file: './build/index.js',
     format: 'cjs'
   }
 };

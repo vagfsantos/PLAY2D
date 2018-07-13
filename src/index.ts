@@ -1,7 +1,1 @@
-export class Ok {
-  ok: string
-
-  onplay(): string {
-    return '';
-  }
-}
+import * as PLAY2D from './test/test';
