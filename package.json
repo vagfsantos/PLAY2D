@@ -7,7 +7,10 @@
     "rimraf": "rimraf ./build",
     "tsc": "tsc",
     "rollup": "rollup -c",
-    "start": "npm run rimraf && watch-run -p './src/**/*.ts' npm run tsc && npm run rollup"
+    "tslint": "tslint -p ./",
+    "start": "npm run rimraf && tsc -w",
+    "build": "npm run tslint && npm run rimraf && npm run tsc && npm run rollup && npm test",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,12 +25,11 @@
   "devDependencies": {
     "eslint": "^5.1.0",
     "eslint-config-google": "^0.9.1",
+    "jest": "^23.4.1",
     "rimraf": "^2.6.2",
     "rollup": "^0.62.0",
-    "watch-run": "^1.2.5",
-    "yarn": "^1.7.0"
-  },
-  "dependencies": {
+    "tslint": "^5.10.0",
+    "tslint-config-airbnb": "^5.9.2",
     "typescript": "^2.9.2"
   }
 }
