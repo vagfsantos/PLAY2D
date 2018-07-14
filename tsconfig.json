@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es5",
     "moduleResolution": "node",
-    "outDir": "build/compiled",
-    "declaration": true
+    "module": "commonjs",
+    "outDir": "build",
+    "declaration": true,
+    "noImplicitAny": true
   },
   "include": [
     "src"

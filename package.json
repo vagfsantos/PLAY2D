@@ -6,28 +6,25 @@
   "scripts": {
     "rimraf": "rimraf ./build",
     "tsc": "tsc",
-    "rollup": "rollup -c",
     "tslint": "tslint -p ./",
+    "jest": "jest --watch",
     "start": "npm run rimraf && tsc -w",
-    "build": "npm run tslint && npm run rimraf && npm run tsc && npm run rollup && npm test",
+    "build": "npm run tslint && npm run rimraf && npm run tsc && npm test",
     "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vagfsantos/PLAY2D.git"
   },
-  "author": "Vagner",
+  "author": "Vagner Ferreira Santos",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vagfsantos/PLAY2D/issues"
   },
   "homepage": "https://github.com/vagfsantos/PLAY2D#readme",
   "devDependencies": {
-    "eslint": "^5.1.0",
-    "eslint-config-google": "^0.9.1",
     "jest": "^23.4.1",
     "rimraf": "^2.6.2",
-    "rollup": "^0.62.0",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
     "typescript": "^2.9.2"
