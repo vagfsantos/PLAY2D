@@ -8,6 +8,16 @@
     "noImplicitAny": true
   },
   "include": [
-    "src"
-  ]
+    "./src"
+  ],
+  "exclude": [
+    "./**.test.ts"
+  ],
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "enableTsDiagnostics": true
+      }
+    }
+  }
 }
