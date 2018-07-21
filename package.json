@@ -9,7 +9,7 @@
     "tslint": "tslint -p ./",
     "start": "npm run rimraf && tsc -w",
     "build": "npm run tslint && npm run rimraf && npm run tsc && npm test",
-    "test": "jest src/**/*.test.ts --watchAll"
+    "test": "jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -42,6 +42,9 @@
       "jsx",
       "json",
       "node"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/build/"
     ]
   }
 }
