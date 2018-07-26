@@ -1,13 +1,25 @@
 import canvas from './canvas';
-import CANVAS_STATE from './canvas.state';
+import canvasHelper from './canvas.helper';
+import { STATE } from './canvas.state';
+
+canvasHelper.createCanvasElement = () => <HTMLCanvasElement>{};
 
 test('creates a canvas with default params', () => {
   const canvasObject = canvas.create();
 
-  const canvas_configuration = canvasObject.get_configuration();
+  const canvasConfiguration = canvasObject.getConfiguration();
 
-  expect(canvas_configuration).toMatchObject({
-    width: CANVAS_STATE.CONFIGURATION.DEFAULT.WIDTH,
-    height: CANVAS_STATE.CONFIGURATION.DEFAULT.HEIGHT,
+  expect(canvasConfiguration).toMatchObject({
+    width: STATE.CONFIGURATION.DEFAULT.WIDTH,
+    height: STATE.CONFIGURATION.DEFAULT.HEIGHT,
   });
+});
+
+test('creates a canvas with custom params', () => {
+  const configuration = { width: 300, height: 300 };
+  const canvasObject = canvas.create(configuration);
+
+  const canvasConfiguration = canvasObject.getConfiguration();
+
+  expect(canvasConfiguration).toMatchObject(configuration);
 });
