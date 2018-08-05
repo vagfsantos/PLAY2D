@@ -5,7 +5,7 @@ const { CONFIGURATION } = STATE;
 
 const canvasHelper = {
   createCanvasElement(): HTMLCanvasElement {
-    return new HTMLCanvasElement();
+    return document.createElement('canvas');
   },
 
   createCanvasWith(configuration: CanvasConfiguration = {}) {
@@ -30,6 +30,16 @@ const canvasHelper = {
       height: CONFIGURATION.CURRENT.HEIGHT,
     };
   },
+
+  appendCanvasTo(DOMQuerySelector: string) {
+    try {
+      const element = document.querySelector(DOMQuerySelector);
+      element.appendChild(STATE.DOM.CANVAS);
+    } catch (e) {
+      console.error(e);
+      throw new Error('Fail to append canvas into the document. Verify que documentation for appendTo method.');
+    }
+  }
 };
 
 export default canvasHelper;

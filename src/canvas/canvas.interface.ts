@@ -6,6 +6,7 @@ export interface CanvasConfiguration {
 export interface Canvas {
   create(configuration?: CanvasConfiguration): Canvas;
   getConfiguration(): CanvasConfiguration;
+  appendTo(DOMQuerySelector: string): void;
 }
 
 export interface CanvasState {

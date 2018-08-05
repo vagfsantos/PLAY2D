@@ -10,6 +10,10 @@ const canvas: Canvas = {
   getConfiguration(): CanvasConfiguration {
     return canvasHelper.getCanvasConfiguration();
   },
+
+  appendTo(DOMQuerySelector: string) {
+    canvasHelper.appendCanvasTo(DOMQuerySelector);
+  }
 };
 
 export default canvas;

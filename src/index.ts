@@ -1,5 +1,5 @@
 import canvas from './canvas/canvas';
 
-export {
+export default {
   canvas,
 };
