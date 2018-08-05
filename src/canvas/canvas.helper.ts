@@ -33,8 +33,8 @@ const canvasHelper = {
 
   appendCanvasTo(DOMQuerySelector: string) {
     try {
-      const element = document.querySelector(DOMQuerySelector);
-      element.appendChild(STATE.DOM.CANVAS);
+      const DOMElement = document.querySelector(DOMQuerySelector);
+      DOMElement.appendChild(STATE.DOM.CANVAS);
     } catch (e) {
       console.error(e);
       throw new Error('Fail to append canvas into the document. Verify que documentation for appendTo method.');

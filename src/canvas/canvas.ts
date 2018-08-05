@@ -13,7 +13,7 @@ const canvas: Canvas = {
 
   appendTo(DOMQuerySelector: string) {
     canvasHelper.appendCanvasTo(DOMQuerySelector);
-  }
+  },
 };
 
 export default canvas;
