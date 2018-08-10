@@ -1,9 +1,9 @@
 import { STATE } from './world.state';
-import { WorldClass } from './world.interface';
+import { ERRORS } from './world.errors';
 
 const worldHelper = {
   newSceneAdded() {
-    STATE.SCENES.TOTAL++;
+    STATE.SCENES.TOTAL += 1;
   },
 
   renderSceneInGameLoop(scene: any) {
@@ -19,12 +19,12 @@ const worldHelper = {
     const hasNextScene = currentScene <= totalScenes;
 
     if (hasNextScene) {
-      STATE.SCENES.CURRENT++;
+      STATE.SCENES.CURRENT += 1;
       return;
     }
 
-    throw new Error('Next scene not avaiable. Make sure to add your scene into the world.');
-  }
+    throw new Error(ERRORS.NEXT_SCENE_NOT_FOUND);
+  },
 };
 
 export default worldHelper;

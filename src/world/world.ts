@@ -3,12 +3,21 @@ import { World } from './world.interface';
 import { STATE } from './world.state';
 
 class WorldClass implements World {
-  _scenes: any[] = [];
+  private scenes: any[] = [];
+
+  constructor() {
+    STATE.SCENES.CURRENT = 0;
+    STATE.SCENES.TOTAL = 0;
+  }
 
   addScene(scene: any) {
-    this._scenes.push(scene);
+    this.scenes.push(scene);
     worldHelper.newSceneAdded();
     return this;
+  }
+
+  getScenes() {
+    return [].concat(this.scenes);
   }
 
   nextScene() {
@@ -16,7 +25,7 @@ class WorldClass implements World {
   }
 
   start() {
-    const currentScene = this._scenes[STATE.SCENES.CURRENT];
+    const currentScene = this.scenes[STATE.SCENES.CURRENT];
     worldHelper.renderSceneInGameLoop(currentScene);
   }
 }
