@@ -1,7 +1,7 @@
 import canvas from './canvas/canvas';
-import world from './world/world';
+import World from './world/World';
 
 export default {
   canvas,
-  World: world,
+  World,
 };
