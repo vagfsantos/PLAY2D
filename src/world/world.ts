@@ -1,18 +1,16 @@
 import worldHelper from './world.helper';
-import { World } from './world.interface';
-import { STATE } from './world.state';
+import { World, WorldSceneState } from './world.interface';
 
 class WorldClass implements World {
   private scenes: any[] = [];
-
-  constructor() {
-    STATE.SCENES.CURRENT = 0;
-    STATE.SCENES.TOTAL = 0;
-  }
+  private sceneState: WorldSceneState = {
+    current: 0,
+    total: 0,
+  };
 
   addScene(scene: any) {
     this.scenes.push(scene);
-    worldHelper.newSceneAdded();
+    this.sceneState.total += 1;
     return this;
   }
 
@@ -21,11 +19,15 @@ class WorldClass implements World {
   }
 
   nextScene() {
-    worldHelper.goToNextScene();
+    worldHelper.goToNextScene(this.sceneState);
+  }
+
+  prevScene() {
+    worldHelper.goToPreviousScene(this.sceneState);
   }
 
   start() {
-    const currentScene = this.scenes[STATE.SCENES.CURRENT];
+    const currentScene = this.scenes[this.sceneState.current];
     worldHelper.renderSceneInGameLoop(currentScene);
   }
 }

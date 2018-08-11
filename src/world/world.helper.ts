@@ -1,11 +1,7 @@
-import { STATE } from './world.state';
+import { WorldSceneState } from './world.interface';
 import { ERRORS } from './world.errors';
 
 const worldHelper = {
-  newSceneAdded() {
-    STATE.SCENES.TOTAL += 1;
-  },
-
   renderSceneInGameLoop(scene: any) {
     window.requestAnimationFrame(function gameLoop() {
       scene.render();
@@ -13,17 +9,29 @@ const worldHelper = {
     });
   },
 
-  goToNextScene() {
-    const totalScenes = STATE.SCENES.TOTAL;
-    const currentScene = STATE.SCENES.CURRENT;
-    const hasNextScene = currentScene <= totalScenes;
+  goToNextScene(sceneState: WorldSceneState) {
+    const totalScenes = sceneState.total;
+    const currentScene = sceneState.current;
+    const hasNextScene = currentScene + 1 < totalScenes;
 
     if (hasNextScene) {
-      STATE.SCENES.CURRENT += 1;
+      sceneState.current += 1;
       return;
     }
 
     throw new Error(ERRORS.NEXT_SCENE_NOT_FOUND);
+  },
+
+  goToPreviousScene(sceneState: WorldSceneState) {
+    const currentScene = sceneState.current;
+    const hasPreviousScene = currentScene - 1 >= 0;
+
+    if (hasPreviousScene) {
+      sceneState.current -= 1;
+      return;
+    }
+
+    throw new Error(ERRORS.PREVIOUS_SCENE_NOT_FOUND);
   },
 };
 

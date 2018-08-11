@@ -3,9 +3,7 @@ export interface World {
   start(): void;
 }
 
-export interface WorldState {
-  SCENES: {
-    CURRENT: number;
-    TOTAL: number;
-  }
+export interface WorldSceneState {
+  total: number;
+  current: number;
 }
