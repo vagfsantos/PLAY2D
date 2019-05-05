@@ -1,8 +1,11 @@
-export { createGame } from "./createGame";
+export { canvas } from "./canvas";
+export { canvasWith } from "./canvasWith";
+export { context2d } from "./context2d";
 export { eachFrame } from "./eachFrame";
 export { start } from "./start";
-export { square } from "./square";
 export { paint } from "./paint";
-export { coordidate } from "./coordidate";
+
+export { size } from "./size";
+export { at } from "./at";
 export { gameObject } from "./gameObject";
-export { pipe } from "./pipe";
+export { image } from "./image";

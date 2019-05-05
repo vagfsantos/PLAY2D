@@ -1,5 +1,7 @@
 import { context2d } from "./../context2d/index";
-export const paint = (canvas: HTMLCanvasElement, draw: Function): void => {
-  const ctx = context2d(canvas);
-  draw(ctx);
-};
+
+const getPainter = (ctx: CanvasRenderingContext2D): Function => (
+  go: GameObject
+): any => ctx.drawImage(go.image, go.x, go.y, go.width, go.height);
+
+export const paint = getPainter(context2d());

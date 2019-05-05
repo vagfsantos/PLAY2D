@@ -1,3 +1,7 @@
-export const context2d = (
+import { canvas } from "./../canvas/index";
+
+const getContext2d = (
   canvas: HTMLCanvasElement
-): CanvasRenderingContext2D => canvas.getContext("2d");
+): Function => (): CanvasRenderingContext2D => canvas.getContext("2d");
+
+export const context2d = getContext2d(canvas());
