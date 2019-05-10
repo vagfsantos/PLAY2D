@@ -23,9 +23,9 @@
   "homepage": "https://github.com/vagfsantos/PLAY2D#readme",
   "devDependencies": {
     "@types/jest": "^23.1.6",
-    "jest": "^23.4.1",
+    "jest": "^24.8.0",
     "rimraf": "^2.6.2",
-    "ts-jest": "^23.0.0",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
     "typescript": "^3.4.5"
