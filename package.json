@@ -9,7 +9,8 @@
     "tslint": "tslint -p ./",
     "start": "npm run rimraf && tsc -w",
     "build": "npm run tslint && npm run rimraf && npm run tsc && npm test",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "doc": "gulp typedoc"
   },
   "repository": {
     "type": "git",
@@ -23,11 +24,14 @@
   "homepage": "https://github.com/vagfsantos/PLAY2D#readme",
   "devDependencies": {
     "@types/jest": "^23.1.6",
+    "gulp": "^4.0.2",
+    "gulp-typedoc": "^2.2.2",
     "jest": "^24.8.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^24.0.2",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
+    "typedoc": "^0.14.2",
     "typescript": "^3.4.5"
   },
   "jest": {
