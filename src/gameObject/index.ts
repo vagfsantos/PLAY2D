@@ -2,7 +2,7 @@ export const gameObject = (
   image: CanvasImageSource,
   position: Vector2d,
   size: Size
-): Function => {
+): GameObjectFunction => {
   const gameObject = { image, ...position, ...size };
 
   return (

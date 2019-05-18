@@ -5,3 +5,7 @@ interface GameObject {
   x: number;
   y: number;
 }
+
+interface GameObjectFunction {
+  (newPosition?: Vector2d, newSize?: Size): GameObject;
+}
