@@ -7,5 +7,8 @@ export { paint } from "./paint";
 
 export { size } from "./size";
 export { at } from "./at";
+export { by } from "./by";
+export { move } from "./move";
+
 export { gameObject } from "./gameObject";
 export { image } from "./image";
