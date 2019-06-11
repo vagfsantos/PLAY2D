@@ -1,9 +1,10 @@
-import { canvasWith } from ".";
+import { screen } from ".";
 import { canvas } from "../canvas";
+import { size } from "../size";
 
-describe("canvasWith | Function", () => {
+describe("screen | Function", () => {
   it("changes canvas element with new size", () => {
-    canvasWith(500, 300);
+    screen(size(500, 300));
 
     expect(canvas().width).toEqual(500);
     expect(canvas().height).toEqual(300);

@@ -1,5 +1,5 @@
 export { canvas } from "./canvas";
-export { canvasWith } from "./canvasWith";
+export { screen } from "./screen";
 export { context2d } from "./context2d";
 export { eachFrame } from "./eachFrame";
 export { start } from "./start";
