@@ -36,4 +36,4 @@ jobs:
           command: npm test
 
       - codecov/upload:
-          file: ~/PLAY2D/coverage/coverage-final.json
+          file: ./coverage/coverage-final.json
