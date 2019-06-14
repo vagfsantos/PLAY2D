@@ -1,0 +1,35 @@
+version: "2.1"
+
+orbs:
+  codecov: codecov/codecov@1.0.5
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:9.1.0
+
+    working_directory: ~/PLAY2D
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run:
+          name: "Install dependencies"
+          command: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: "Run tests and generate coverage"
+          command: npm test
+
+      - codecov/upload:
+          file: ./coverage/coverage-final.json
