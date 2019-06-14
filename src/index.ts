@@ -9,6 +9,7 @@ export { size } from "./size";
 export { at } from "./at";
 export { by } from "./by";
 export { move } from "./move";
+export { state } from "./state";
 
 export { gameObject } from "./gameObject";
 export { image } from "./image";
