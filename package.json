@@ -1,16 +1,15 @@
 {
   "name": "play2d",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "./src/index.ts",
+  "main": "./build/index.js",
   "scripts": {
-    "rimraf": "rimraf ./build",
-    "tsc": "tsc",
-    "tslint": "tslint -p ./",
     "start": "npm run rimraf && tsc -w",
-    "build": "npm run tslint && npm run rimraf && npm run tsc && npm test",
-    "test": "jest --collectCoverage=true",
-    "doc": "gulp typedoc"
+    "clean": "rimraf ./build",
+    "compile": "tsc",
+    "lint": "tslint --project ./",
+    "build": "npm run clean && npm run compile",
+    "test": "jest --collectCoverage=true"
   },
   "repository": {
     "type": "git",
@@ -25,10 +24,13 @@
   "devDependencies": {
     "@types/jest": "^23.1.6",
     "jest": "^24.8.0",
+    "prettier": "^1.18.2",
     "rimraf": "^2.6.2",
     "ts-jest": "^24.0.2",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
     "typedoc": "^0.14.2",
     "typescript": "^3.4.5"
   },
