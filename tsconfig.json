@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "lib": ["es6", "dom"],
     "moduleResolution": "node",
     "module": "commonjs",
     "outDir": "build",
@@ -8,7 +9,7 @@
     "noImplicitAny": true
   },
   "include": ["./src"],
-  "exclude": ["node_modules", "**/*.test.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"],
   "jest": {
     "globals": {
       "ts-jest": {

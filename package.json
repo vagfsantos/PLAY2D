@@ -4,7 +4,7 @@
   "description": "",
   "main": "./build/index.js",
   "scripts": {
-    "start": "npm run rimraf && tsc -w",
+    "start": "npm run clean && tsc -w",
     "clean": "rimraf ./build",
     "compile": "tsc",
     "lint": "tslint --project ./",
@@ -31,7 +31,6 @@
     "tslint-config-airbnb": "^5.9.2",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typedoc": "^0.14.2",
     "typescript": "^3.4.5"
   },
   "jest": {
