@@ -1,5 +1,5 @@
-import { at } from "../at";
 import { add } from "../add";
+import { at } from "../at";
 
 export function move(
   gameObjectFn: GameObjectFunction,

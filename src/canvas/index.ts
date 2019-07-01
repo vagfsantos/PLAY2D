@@ -1,4 +1,4 @@
-const createCanvas = (): Function => {
+const createCanvas = (): getCanvasElement => {
   const canvasElement = document.createElement("canvas");
 
   return (): HTMLCanvasElement => canvasElement;

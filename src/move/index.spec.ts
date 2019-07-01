@@ -1,12 +1,13 @@
-import { gameObject } from "../gameObject";
-import { at } from "../at";
-import { size } from "../size";
-import { by } from "../by";
 import { move } from ".";
+import { at } from "../at";
+import { by } from "../by";
+import { gameObject } from "../gameObject";
+import { size } from "../size";
 
 describe("move(go: GameObjectFunction, increment: Vector2d)", () => {
   it("returns an IncrementalFunction", () => {
     const character = gameObject(new Image(), at(2, 2), size(20, 20));
+
     expect(move(character, by(1, 0))).toBeInstanceOf(Function);
   });
 

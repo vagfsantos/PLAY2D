@@ -1,6 +1,6 @@
 import { gameObject } from ".";
-import { at } from "./../at";
 import { size } from "../size";
+import { at } from "./../at";
 
 describe("gameObject(image, position, size)", () => {
   it("returns a gameObject function", () =>
@@ -17,11 +17,11 @@ describe("gameObject(image, position, size)", () => {
       );
 
       expect(character()).toMatchObject({
+        height: 2,
         image: new Image(),
-        x: 1,
-        y: 2,
         width: 1,
-        height: 2
+        x: 1,
+        y: 2
       });
     });
 
@@ -33,11 +33,11 @@ describe("gameObject(image, position, size)", () => {
       );
 
       expect(character(at(22, 22), size(11, 11))).toMatchObject({
+        height: 11,
         image: new Image(),
-        x: 22,
-        y: 22,
         width: 11,
-        height: 11
+        x: 22,
+        y: 22
       });
     });
   });

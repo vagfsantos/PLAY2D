@@ -1,4 +1,4 @@
-import { at } from "./index";
+import { at } from ".";
 
 describe("At | Function", () => {
   it("returns a valid Vector2D with x and y property", () =>

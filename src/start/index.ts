@@ -1,7 +1,7 @@
 import { canvas } from "../canvas";
 
-const appendCanvasToDocument = (
-  canvas: HTMLCanvasElement
-): Function => (): any => document.body.appendChild(canvas);
+const appendCanvasToDocument = (c: HTMLCanvasElement) => (): void => {
+  document.body.appendChild(c);
+};
 
 export const start = appendCanvasToDocument(canvas());

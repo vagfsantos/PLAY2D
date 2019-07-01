@@ -4,7 +4,7 @@ const fakeWRAF = (window.requestAnimationFrame = jest.fn());
 
 describe("eachFrame(fn: Function)", () => {
   it("calls window.requestAnimationFrame", () => {
-    eachFrame(() => {});
+    eachFrame(() => "it works");
 
     expect(fakeWRAF).toHaveBeenCalled();
   });

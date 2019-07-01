@@ -1,4 +1,4 @@
-import { image } from "./index";
+import { image } from ".";
 
 describe("image(source)", () => {
   it("returns a new image data with given source", () => {
