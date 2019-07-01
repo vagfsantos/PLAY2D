@@ -4,32 +4,72 @@ orbs:
   codecov: codecov/codecov@1.0.5
 
 jobs:
-  build:
+  build_project:
     docker:
       - image: circleci/node:9.1.0
-
     working_directory: ~/PLAY2D
-
     steps:
       - checkout
-
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-
       - run:
-          name: "Install dependencies"
-          command: npm install
-
+          name: Installing Yarn package manager
+          command: npm install -g yarn
+      - run:
+          name: Installing dependencies
+          command: yarn install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-          name: "Run tests and generate coverage"
-          command: npm test
+  lint_and_test:
+    <<: *defaults
+    - attach_workspace:
+        at: ~/PLAY2D
+    steps:
+    - run:
+        name: Linting files
+        command: npm run lint
 
-      - codecov/upload:
-          file: ./coverage/coverage-final.json
+    - run:
+        name: Testing
+        command: npm test
+
+    - codecov/upload:
+        file: ./coverage/coverage-final.json
+
+  deploy_package_to_npm:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/PLAY2D
+      - run:
+        name: Building project
+        command: npm run build
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/PLAY2D/.npmrc
+      - run:
+          name: Publishing package
+          command: npm publish
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - build_project
+      - lint_and_test:
+          requires:
+            - build_project
+      - deploy_package_to_npm:
+          requires:
+            - lint_and_test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+
