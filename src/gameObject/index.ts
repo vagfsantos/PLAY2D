@@ -3,10 +3,10 @@ export const gameObject = (
   position: Vector2d,
   size: Size
 ): GameObjectFunction => {
-  const gameObject = { image, ...position, ...size };
+  const savedGameObject = { image, ...position, ...size };
 
   return (
     newPosition: Vector2d = position,
     newSize: Size = size
-  ): GameObject => ({ ...gameObject, ...newPosition, ...newSize });
+  ): GameObject => ({ ...savedGameObject, ...newPosition, ...newSize });
 };

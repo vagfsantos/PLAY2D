@@ -1,10 +1,10 @@
-type functionGameObject = () => GameObject;
-
-export const state = (gameObject: functionGameObject) => {
+export const state = (gameObject: getGameObject) => {
   let lastGameObjectState = gameObject();
 
-  return (newGameObject?: functionGameObject) => {
-    if (newGameObject) lastGameObjectState = newGameObject();
+  return (newGameObject?: getGameObject) => {
+    if (newGameObject) {
+      lastGameObjectState = newGameObject();
+    }
 
     return lastGameObjectState;
   };

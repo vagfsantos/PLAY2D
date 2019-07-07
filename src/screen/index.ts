@@ -1,9 +1,8 @@
 import { canvas } from "../canvas";
 
-export const screen = ((canvas: HTMLCanvasElement): Function => ({
-  width,
-  height
-}: Size): void => {
-  canvas.width = width;
-  canvas.height = height;
-})(canvas());
+const updateScreenSize = (c: HTMLCanvasElement) => (size: Size): void => {
+  c.width = size.width;
+  c.height = size.height;
+};
+
+export const screen = updateScreenSize(canvas());

@@ -1,6 +1,6 @@
 import { state } from ".";
-import { at } from "../at/index";
-import { gameObject } from "../gameObject/index";
+import { at } from "../at";
+import { gameObject } from "../gameObject";
 import { image } from "../image";
 import { size } from "../size";
 

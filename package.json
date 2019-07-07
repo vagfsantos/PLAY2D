@@ -1,16 +1,15 @@
 {
   "name": "play2d",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "./src/index.ts",
+  "main": "./build/index.js",
   "scripts": {
-    "rimraf": "rimraf ./build",
-    "tsc": "tsc",
-    "tslint": "tslint -p ./",
-    "start": "npm run rimraf && tsc -w",
-    "build": "npm run tslint && npm run rimraf && npm run tsc && npm test",
-    "test": "jest --collectCoverage=true",
-    "doc": "gulp typedoc"
+    "start": "npm run clean && tsc -w",
+    "clean": "rimraf ./build",
+    "compile": "tsc",
+    "lint": "tslint --project ./",
+    "build": "npm run clean && npm run compile",
+    "test": "jest --collectCoverage=true"
   },
   "repository": {
     "type": "git",
@@ -24,14 +23,17 @@
   "homepage": "https://github.com/vagfsantos/PLAY2D#readme",
   "devDependencies": {
     "@types/jest": "^23.1.6",
-    "gulp": "^4.0.2",
-    "gulp-typedoc": "^2.2.2",
+    "commitizen": "^3.1.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "husky": "^3.0.0",
     "jest": "^24.8.0",
+    "prettier": "^1.18.2",
     "rimraf": "^2.6.2",
     "ts-jest": "^24.0.2",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
-    "typedoc": "^0.14.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.4.5"
   },
   "jest": {
@@ -50,5 +52,16 @@
     "modulePathIgnorePatterns": [
       "<rootDir>/build/"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && yarn test",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }

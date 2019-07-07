@@ -1,4 +1,4 @@
-import { add } from "./index";
+import { add } from ".";
 import { at } from "../at";
 
 describe("add(v1: Vector2d, v2: Vector2d)", () => {

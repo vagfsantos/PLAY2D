@@ -1,22 +1,20 @@
 import { paint } from ".";
 
 const fakeDrawImage = jest.fn();
-jest.mock("../context2d", function() {
-  return {
-    context2d() {
-      return { drawImage: (...args: any[]) => fakeDrawImage(...args) };
-    }
-  };
-});
+jest.mock("../context2d", () => ({
+  context2d() {
+    return { drawImage: (...args: any[]) => fakeDrawImage(...args) };
+  }
+}));
 
 describe("paint(gameObject)", () => {
   it("calls draw image with given game object", () => {
     const fakeGameObject = {
+      height: 1,
       image: new Image(),
-      x: 55,
-      y: 2,
       width: 2,
-      height: 1
+      x: 55,
+      y: 2
     };
 
     paint(fakeGameObject);

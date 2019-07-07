@@ -4,32 +4,62 @@ orbs:
   codecov: codecov/codecov@1.0.5
 
 jobs:
-  build:
+  lint-and-test:
     docker:
-      - image: circleci/node:9.1.0
-
+      - image: circleci/node:10.0.0
     working_directory: ~/PLAY2D
-
     steps:
       - checkout
-
       - restore_cache:
+          name: Restore Yarn Package Cache
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
-          name: "Install dependencies"
-          command: npm install
-
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
       - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
+            - ~/.cache/yarn
       - run:
-          name: "Run tests and generate coverage"
-          command: npm test
-
+          name: Linting files
+          command: "npm run lint"
+      - run:
+          name: Testing
+          command: "npm test"
       - codecov/upload:
           file: ./coverage/coverage-final.json
+
+  deploy-package-to-npm:
+    docker:
+      - image: circleci/node:9.1.0
+    working_directory: ~/PLAY2D
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - run:
+          name: Building project
+          command: "npm run build"
+      - run:
+          name: Authenticate with registry
+          command: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/PLAY2D/.npmrc'
+      - run:
+          name: Publishing package
+          command: "npm publish"
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - lint-and-test
+      - deploy-package-to-npm:
+          requires:
+            - lint-and-test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
