@@ -9,8 +9,7 @@
     "compile": "tsc",
     "lint": "tslint --project ./",
     "build": "npm run clean && npm run compile",
-    "test": "jest --collectCoverage=true",
-    "commit": "yarn git-cz"
+    "test": "jest --collectCoverage=true"
   },
   "repository": {
     "type": "git",
@@ -56,7 +55,13 @@
   },
   "husky": {
     "hooks": {
+      "prepare-commit": "yarn test",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
     }
   }
 }
