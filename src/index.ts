@@ -11,3 +11,5 @@ export { move } from "./move";
 export { state } from "./state";
 export { gameObject } from "./gameObject";
 export { image } from "./image";
+export { isKeyPressed } from "./isKeyPressed";
+export * from "./keyboard";
