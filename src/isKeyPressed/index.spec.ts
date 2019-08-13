@@ -12,12 +12,27 @@ describe("Function | isKeyPressed", () => {
 
   describe("when given key is being pressed", () => {
     it("returns true", () => {
-      const fakeEvent = new KeyboardEvent("keyDown", { code: ALT.toString() });
+      const fakeEvent = new KeyboardEvent("keydown", { code: ALT.toString() });
       window.dispatchEvent(fakeEvent);
 
       const pressed = isKeyPressed(ALT);
 
-      expect(pressed).toBeFalsy();
+      expect(pressed).toBeTruthy();
+    });
+
+    describe("and the key had been released", () => {
+      it("returns false", () => {
+        const keyDownEvent = new KeyboardEvent("keydown", {
+          code: ALT.toString()
+        });
+        const keyUpEvent = new KeyboardEvent("keyup", { code: ALT.toString() });
+        window.dispatchEvent(keyDownEvent);
+        window.dispatchEvent(keyUpEvent);
+
+        const pressed = isKeyPressed(ALT);
+
+        expect(pressed).toBeFalsy();
+      });
     });
   });
 });

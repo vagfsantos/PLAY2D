@@ -1,15 +1,15 @@
-type IsPressed = (keyCode: number) => boolean;
+type IsPressed = (code: number) => boolean;
 
 export const isKeyPressed = ((): IsPressed => {
-  const keysPressed: any = {};
+  const pressedKeys: any = {};
 
-  window.addEventListener("keydown", ({ keyCode }) => {
-    keysPressed[keyCode] = true;
+  window.addEventListener("keydown", ({ code }) => {
+    pressedKeys[code] = true;
   });
 
-  window.addEventListener("keyup", ({ keyCode }) => {
-    keysPressed[keyCode] = false;
+  window.addEventListener("keyup", ({ code }) => {
+    pressedKeys[code] = false;
   });
 
-  return (keyCode: number): boolean => keysPressed[keyCode];
+  return (code: number): boolean => pressedKeys[code];
 })();
